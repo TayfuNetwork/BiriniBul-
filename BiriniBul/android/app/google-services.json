@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "160528578459",
+    "project_id": "birini-bul",
+    "storage_bucket": "birini-bul.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:160528578459:android:73784fd4d9c73005d5d33e",
+        "android_client_info": {
+          "package_name": "com.example.version1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "160528578459-v1qkqtet5343f2noqum7l6ic9i8o7so6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.version1",
+            "certificate_hash": "9da11925413275767bb168f6821dcb0281531450"
+          }
+        },
+        {
+          "client_id": "160528578459-2oc1gepbkkit85muprgr04tagspula2g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDubH7rEREBcT2i1WVT_iU6P8tmrmJzQk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "160528578459-2oc1gepbkkit85muprgr04tagspula2g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
