@@ -25,13 +25,7 @@ class profile extends StatefulWidget {
 
 String? ad, soyad, yasi;
 
-class FirestoreDBService implements DBbase{
-  @override
-  Future<User> saveUser(User user) {
-    
-    throw UnimplementedError();
-  }
-}
+
 
 
 class _profileState extends State<profile> {
