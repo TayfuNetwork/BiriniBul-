@@ -57,7 +57,7 @@ class _SignInPageState extends State<SignInPage> {
               ),
               onPressed: () {
                 Navigator.of(context).push(CupertinoPageRoute(
-                    builder: (context) => const emailPassword()));
+                    builder: (context) => const EmailPassword()));
               },
               child: Row(
                 mainAxisSize: MainAxisSize.max,
@@ -141,7 +141,7 @@ class _SignInPageState extends State<SignInPage> {
   void _misafirGirisi() async {
     UserCredential sonuc = await FirebaseAuth.instance.signInAnonymously();
     await Navigator.of(context)
-        .push(CupertinoPageRoute(builder: (context) => const profile()));
+        .push(CupertinoPageRoute(builder: (context) => const Profile()));
 
     print("oturum açan id: " + sonuc.user!.uid.toString());
   }
@@ -159,7 +159,7 @@ class _SignInPageState extends State<SignInPage> {
                 accessToken: _googleAuth.accessToken));
         User? _user = sonuc.user;
         await Navigator.of(context)
-            .push(CupertinoPageRoute(builder: (context) => const profile()));
+            .push(CupertinoPageRoute(builder: (context) => const Profile()));
 
         return _user;
       } else {

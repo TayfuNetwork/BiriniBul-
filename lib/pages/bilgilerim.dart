@@ -1,12 +1,12 @@
-
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:version1/models/user.dart';
 import 'package:version1/pages/profil.dart';
 import 'package:version1/pages/search_page.dart';
 import 'package:version1/pages/sign_in_page.dart';
+import 'package:version1/services/auth_service.dart';
 import '../control_pages/json-models.dart';
 
 // sadece oturum açmış kişiler bu sayfayı görebilir.
@@ -25,16 +25,14 @@ String? ili, ilcesi, bransi, mevkisi;
 
 // ignore: camel_case_types
 class _bilgilerimState extends State<bilgilerim> {
-  
   Brans? brans;
   String? mevki;
   BransServices model = BransServices();
   Il? il;
   String? ilce;
   IlService service = IlService();
-  
-  
 
+  MyUser get user => AuthService().user!;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,10 +69,10 @@ class _bilgilerimState extends State<bilgilerim> {
 //******************************************************************//
               const Text('Kimliğiniz', style: TextStyle(color: Colors.grey)),
               ListTile(
-                title: Text("$ad $soyad"),
+                title: Text("${user.userName}"),
                 leading: CircleAvatar(
                   child: Text(
-                    "$yasi",
+                    "${user.yas}",
                     style: const TextStyle(fontSize: 20),
                   ),
                   backgroundColor: Colors.blue,
@@ -216,7 +214,7 @@ class _bilgilerimState extends State<bilgilerim> {
                     Column(
                       children: [
                         ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             // ad = ("$isim" + " $soyisim");
 
                             //yasi = yas.toString();
@@ -224,7 +222,15 @@ class _bilgilerimState extends State<bilgilerim> {
                             ilcesi = ilce;
                             bransi = (brans)!.brans;
                             mevkisi = mevki;
-                           
+                            MyUser user = AuthService().user!;
+                            user = user.copyWith(
+                              brans: bransi,
+                              il: ili,
+                              ilce: ilce,
+                              mevki: mevki,
+                            );
+                            bool? res = await AuthService().updateUser(user);
+                            print(res);
                             Navigator.of(context).push(CupertinoPageRoute(
                                 builder: (context) => const searchPage()));
                           },

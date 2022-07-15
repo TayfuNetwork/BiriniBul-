@@ -1,34 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:version1/pages/bilgilerim.dart';
+import 'package:version1/pages/profil.dart';
 import 'package:version1/pages/sign_in_page.dart';
+import 'package:version1/services/auth_service.dart';
 
-class Landing_Page extends StatefulWidget {
-  const Landing_Page({Key? key}) : super(key: key);
+class LandingPage extends StatefulWidget {
+  const LandingPage({Key? key}) : super(key: key);
 
   @override
-  State<Landing_Page> createState() => _Landing_PageState();
+  State<LandingPage> createState() => LandingPageState();
 }
 
-class _Landing_PageState extends State<Landing_Page> {
-  late User? _kullanici;
-
-  @override
-  void initState() {
-    super.initState();
-    _checkUser();
-  }
-
+class LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
-    if (_kullanici == null) {
-      return SignInPage();
+    if (FirebaseAuth.instance.currentUser == null) {
+      return const SignInPage();
     } else {
-      return bilgilerim();
+      if (AuthService().isHaveProfile) {
+        return bilgilerim();
+      } else {
+        return const Profile();
+      }
     }
-  }
-
-  Future<void> _checkUser() async {
-    _kullanici = FirebaseAuth.instance.currentUser;
   }
 }

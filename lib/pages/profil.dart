@@ -1,34 +1,29 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:collection';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:version1/models/user.dart';
 
 import 'package:version1/pages/bilgilerim.dart';
 import 'package:version1/pages/sign_in_page.dart';
+import 'package:version1/services/auth_service.dart';
 
 import '../control_pages/json-models.dart';
-import 'db.dart';
 
 // ignore: camel_case_types
 
-class profile extends StatefulWidget {
-  const profile({
+class Profile extends StatefulWidget {
+  const Profile({
     Key? key,
   }) : super(key: key);
 
   @override
-  _profileState createState() => _profileState();
+  _ProfileState createState() => _ProfileState();
 }
 
 String? ad, soyad, yasi;
 
-
-
-
-class _profileState extends State<profile> {
+class _ProfileState extends State<Profile> {
   Brans? brans;
   String? mevki;
   BransServices model = BransServices();
@@ -44,7 +39,7 @@ class _profileState extends State<profile> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('Profil'),
+        title: Text('Profil ${AuthService().user?.id}'),
         actions: <Widget>[
           TextButton(
             onPressed: _cikisYap,
@@ -55,7 +50,6 @@ class _profileState extends State<profile> {
           )
         ],
       ),
-//******************************************************************//
       body: SingleChildScrollView(
           child: Container(
         width: double.maxFinite,
@@ -67,8 +61,6 @@ class _profileState extends State<profile> {
             boxShadow: const [
               BoxShadow(color: Colors.grey, blurRadius: 6),
             ]),
-//******************************************************************//
-
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -78,7 +70,6 @@ class _profileState extends State<profile> {
             const Text('Bilgilerin doğruluğundan şahsınız sorumludur',
                 style: TextStyle(color: Colors.grey)),
             const SizedBox(height: 10),
-//******************************************************************//
 
             TextField(
               decoration: const InputDecoration(
@@ -121,7 +112,7 @@ class _profileState extends State<profile> {
                 ),
                 autofocus: false,
                 onChanged: (deger) {
-                  yas = int.parse(deger);
+                  yas = int.tryParse(deger) ?? 0;
                 }),
 
             const SizedBox(height: 10),
@@ -132,13 +123,26 @@ class _profileState extends State<profile> {
 //******************************************************************//
 
                 ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       setState(() {
                         ad = isim!;
                         soyad = soyisim!;
                         yasi = yas.toString();
                       });
+                      User user = FirebaseAuth.instance.currentUser!;
+                      await FirebaseAuth.instance.currentUser!
+                          .updateDisplayName(
+                        ad! + " " + soyad!,
+                      );
 
+                      MyUser myUser = MyUser(
+                        email: user.email ?? "email",
+                        userName: ad ?? "name",
+                        id: user.uid,
+                        yas: yas,
+                      );
+
+                      bool? res = await AuthService().updateUser(myUser);
                       Navigator.of(context).push(CupertinoPageRoute(
                           builder: (context) => bilgilerim()));
                     },

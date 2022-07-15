@@ -1,12 +1,12 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:version1/control_pages/landing_page.dart';
+import 'package:version1/services/auth_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  var refKisi = FirebaseDatabase.instance.ref().child("admin_bilgileri");
+  await AuthService().checkUser();
   runApp(MyApp());
 }
 
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'BiriniBul',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.green),
-      home: const Landing_Page(),
+      home: const LandingPage(),
     );
   }
 }

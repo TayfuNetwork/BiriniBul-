@@ -4,19 +4,20 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:version1/pages/profil.dart';
+import 'package:version1/services/auth_service.dart';
 
 enum FormType { Register, Login }
 
 // ignore: camel_case_types
-class emailPassword extends StatefulWidget {
-  const emailPassword({Key? key}) : super(key: key);
+class EmailPassword extends StatefulWidget {
+  const EmailPassword({Key? key}) : super(key: key);
 
   @override
-  State<emailPassword> createState() => _emailPasswordState();
+  State<EmailPassword> createState() => _EmailPasswordState();
 }
 
 // ignore: camel_case_types
-class _emailPasswordState extends State<emailPassword> {
+class _EmailPasswordState extends State<EmailPassword> {
   String? _email, _sifre, _sifreTekrar;
   String? _butonText, _linkText;
   var _formType = FormType.Login;
@@ -26,6 +27,7 @@ class _emailPasswordState extends State<emailPassword> {
   _fromSubmit(BuildContext context) async {
     _formKey.currentState?.save();
     User? user;
+    AuthService service = AuthService();
     try {
       if (_formType == FormType.Register) {
         if (_sifre != _sifreTekrar) {
@@ -33,19 +35,9 @@ class _emailPasswordState extends State<emailPassword> {
               const SnackBar(content: Text("Şifreler eşleşmedi")));
           return;
         }
-        UserCredential userCredential = await auth
-            .createUserWithEmailAndPassword(email: _email!, password: _sifre!);
-        if (userCredential.user != null) {
-          print(userCredential.user);
-          user = userCredential.user;
-        }
+        user = await service.signUp(_sifre!, _email!);
       } else {
-        UserCredential userCredential = await auth.signInWithEmailAndPassword(
-            email: _email!, password: _sifre!);
-        if (userCredential.user != null) {
-          print(userCredential.user);
-          user = userCredential.user;
-        }
+        user = await service.signIn(_sifre!, _email!);
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == "user-not-found") {
@@ -73,7 +65,7 @@ class _emailPasswordState extends State<emailPassword> {
     print(user);
     if (user != null) {
       Navigator.of(context)
-          .push(CupertinoPageRoute(builder: (context) => const profile()));
+          .push(CupertinoPageRoute(builder: (context) => const Profile()));
     }
   }
 

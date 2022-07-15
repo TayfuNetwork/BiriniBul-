@@ -1,9 +1,12 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:version1/control_pages/json-models.dart';
 import 'package:flutter/material.dart';
+import 'package:version1/models/user.dart';
 import 'package:version1/pages/bilgilerim.dart';
 import 'package:version1/pages/profil.dart';
 import 'package:version1/pages/results.dart';
+import 'package:version1/services/auth_service.dart';
+import 'package:version1/services/search_service.dart';
 import '../control_pages/json-models.dart';
 
 // ignore: camel_case_types
@@ -18,7 +21,6 @@ class searchPage extends StatefulWidget {
 
 // ignore: camel_case_types
 class _searchPageState extends State<searchPage> {
-  
   Brans? brans;
   String? mevki;
   BransServices model = BransServices();
@@ -32,9 +34,23 @@ class _searchPageState extends State<searchPage> {
   String? bulunanIlce;
   String? bulunanBrans;
   String? bulunanMevki;
-  Future<void> Arama() async {
-    
-    
+  Future<void> arama() async {
+    // DateTime start = DateTime.now();
+    // List<MyUser>? users =
+    //     await SearchService().search(il!.il, ilce!, brans!.brans, mevki!);
+    // DateTime end = DateTime.now();
+    // print(end.difference(start).inMilliseconds);
+    // print(users);
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => Results(
+          il: il!.il,
+          ilce: ilce!,
+          brans: brans!.brans,
+          mevki: mevki!,
+        ),
+      ),
+    );
   }
 
   @override
@@ -179,7 +195,7 @@ class _searchPageState extends State<searchPage> {
               children: [
                 ElevatedButton(
                     onPressed: () {
-                      Arama();
+                      arama();
                     },
                     child: const Text('Ara')),
                 ElevatedButton(
