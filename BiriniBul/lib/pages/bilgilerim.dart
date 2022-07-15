@@ -25,7 +25,7 @@ String? ili, ilcesi, bransi, mevkisi;
 
 // ignore: camel_case_types
 class _bilgilerimState extends State<bilgilerim> {
-  var refHobi = FirebaseDatabase.instance.reference().child("kisi_bilgileri");
+  
   Brans? brans;
   String? mevki;
   BransServices model = BransServices();
