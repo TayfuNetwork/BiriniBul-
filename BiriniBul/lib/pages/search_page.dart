@@ -18,7 +18,7 @@ class searchPage extends StatefulWidget {
 
 // ignore: camel_case_types
 class _searchPageState extends State<searchPage> {
-  var refKisi = FirebaseDatabase.instance.ref().child("admin_bilgileri");
+  
   Brans? brans;
   String? mevki;
   BransServices model = BransServices();
