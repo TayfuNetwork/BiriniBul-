@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:version1/models/user.dart';
 
 class AuthService {
@@ -25,7 +27,7 @@ class AuthService {
   CollectionReference<Map<String, dynamic>> get userCollection =>
       FirebaseFirestore.instance.collection("Users");
 
-  Future<User?> signUp(String sifre, String email) async {
+  Future<User?> signUp(String sifre, String email, BuildContext context) async {
     try {
       UserCredential userCredential = await _auth
           .createUserWithEmailAndPassword(email: email, password: sifre);
@@ -34,15 +36,27 @@ class AuthService {
         return userCredential.user;
       }
     } on FirebaseAuthException catch (e) {
-      if (e.code == "user-not-found") {}
       if (e.code == "email-already-in-use") {
-        print("Hata ${e.code}");
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Kayıtlı bir kullanıcı mevcut")));
+      } else if (e.code == "weak-password") {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("Şifre çok kısa")));
+      } else if (e.code == "invalid-email") {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("Geçersiz email")));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Bilinmeyen bir hata oluştu"),
+          ),
+        );
       }
     }
     return null;
   }
 
-  Future<User?> signIn(String sifre, String email) async {
+  Future<User?> signIn(String sifre, String email, BuildContext context) async {
     try {
       UserCredential userCredential =
           await _auth.signInWithEmailAndPassword(email: email, password: sifre);
@@ -50,7 +64,24 @@ class AuthService {
         print(userCredential.user);
         return userCredential.user;
       }
-    } on Exception catch (e) {}
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "user-not-found") {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Kayıtlı kullanıcı yok")));
+      } else if (e.code == "wrong-password") {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("Hatalı şifre")));
+      } else if (e.code == "invalid-email") {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("Geçersiz email")));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Bilinmeyen bir hata oluştu"),
+          ),
+        );
+      }
+    }
     return null;
   }
 
