@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:version1/pages/bilgilerim.dart';
 import 'package:version1/pages/profil.dart';
 import 'package:version1/services/auth_service.dart';
 
@@ -36,15 +37,22 @@ class _EmailPasswordState extends State<EmailPassword> {
         return;
       }
       user = await service.signUp(_sifre!, _email!, context);
+      if (user != null) {
+        Navigator.of(context)
+            .push(CupertinoPageRoute(builder: (context) => const Profile()));
+      }
     } else {
       user = await service.signIn(_sifre!, _email!, context);
+      if (user != null) {
+        await AuthService().checkUser();
+
+        Navigator.of(context).push(CupertinoPageRoute(
+            builder: (context) =>
+                AuthService().isHaveProfile ? bilgilerim() : const Profile()));
+      }
     }
 
     print(user);
-    if (user != null) {
-      Navigator.of(context)
-          .push(CupertinoPageRoute(builder: (context) => const Profile()));
-    }
   }
 
   @override
