@@ -28,38 +28,16 @@ class _EmailPasswordState extends State<EmailPassword> {
     _formKey.currentState?.save();
     User? user;
     AuthService service = AuthService();
-    try {
-      if (_formType == FormType.Register) {
-        if (_sifre != _sifreTekrar) {
-          ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Şifreler eşleşmedi")));
-          return;
-        }
-        user = await service.signUp(_sifre!, _email!);
-      } else {
-        user = await service.signIn(_sifre!, _email!);
-      }
-    } on FirebaseAuthException catch (e) {
-      if (e.code == "user-not-found") {
-        setState(() {
-          _formType = FormType.Register;
-        });
 
-        print("Kayıtlı kullanıcı yok ${e.code}");
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Kayıtlı kullanıcı yok")));
+    if (_formType == FormType.Register) {
+      if (_sifre != _sifreTekrar) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("Şifreler eşleşmedi")));
+        return;
       }
-      if (e.code == "email-already-in-use") {
-        setState(() {
-          _formType = FormType.Login;
-        });
-
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Email daha önceden kayıt edilmiş")));
-        print("Hata ${e.code}");
-      }
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("Hata: ${e.code}")));
+      user = await service.signUp(_sifre!, _email!, context);
+    } else {
+      user = await service.signIn(_sifre!, _email!, context);
     }
 
     print(user);
