@@ -1,7 +1,10 @@
+import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:version1/models/mesaj.dart';
 import 'package:version1/models/user.dart';
 
 class AuthService {
@@ -115,5 +118,35 @@ class AuthService {
       print(e.toString());
       return false;
     }
+  }
+
+  static saveMessage(Mesaj kaydedilecekMesaj) async {
+    var _mesajID =
+        FirebaseFirestore.instance
+  .collection('konusmalar')
+  .doc(documentId);
+
+    var _myDocumentID =
+        kaydedilecekMesaj.kimden + "--" + kaydedilecekMesaj.kime;
+    var _receiverDocumentID =
+        kaydedilecekMesaj.kime + "--" + kaydedilecekMesaj.kimden;
+    var _kaydedilecekMesajYapisi = kaydedilecekMesaj.toMap();
+    await FirebaseFirestore.instance
+        .collection("konusmalar")
+        .doc(_myDocumentID.toString())
+        .collection("mesajlar")
+        .doc(_mesajID.toString())
+        .set(_kaydedilecekMesajYapisi);
+
+    _kaydedilecekMesajYapisi.update("bendenMi", (deger) => false);
+
+    await FirebaseFirestore.instance
+        .collection("konusmalar")
+        .doc(_receiverDocumentID)
+        .collection("mesajlar")
+        .doc(_mesajID.toString())
+        .set(_kaydedilecekMesajYapisi);
+
+    return true;
   }
 }
