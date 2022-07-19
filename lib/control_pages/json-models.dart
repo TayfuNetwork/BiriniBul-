@@ -1559,7 +1559,7 @@ const String _ilDatas = """[
 const String _bransData = """[
   {
     "brans": "Futbol",
-    "no": 82,
+    "no": 83,
     "mevki": [
       "Farketmez",
       "Kaleci",
@@ -1570,7 +1570,7 @@ const String _bransData = """[
   },
   {
     "brans": "Voleybol",
-    "no": 83,
+    "no": 82,
     "mevki": [
       "Farketmez",
       "Smacor",
@@ -2118,6 +2118,320 @@ const String _bransData = """[
       "Squat",
       "Kanat",
       "Full"
+    ]
+  },
+  {
+    "brans": "Valorant",
+    "no": 140,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Ninjitsu",
+    "no": 141,
+    "mevki": [
+      "Farketmez",
+      "Tai-Sabaki",
+      "Tai-Jutsu",
+      "Jutai-Jutsu",
+      "Kobu-Jutsu"
+    ]
+  },
+  {
+    "brans": "Valorant",
+    "no": 142,
+    "mevki": [
+      "Farketmez",
+      "Nan",
+      "Shaolin",
+      "Wudang",
+      "hui"
+    ]
+  },
+  {
+    "brans": "Jui-Jitsu",
+    "no": 143,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Lethwei",
+    "no": 144,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Kalaripayat",
+    "no": 145,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Pencak-Silat",
+    "no": 146,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Aikijutsu",
+    "no": 147,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Taekyon",
+    "no": 148,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Aikido",
+    "no": 149,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Wing-Chun",
+    "no": 150,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Krav-Maga",
+    "no": 151,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Jieishudan",
+    "no": 152,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Adithada",
+    "no": 153,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Aikijujutsu",
+    "no": 154 ,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Alpagut",
+    "no": 155,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Amarok",
+    "no": 156,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Amerikan-Kenpo",
+    "no": 157,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Aslando",
+    "no": 158,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Baguazhan",
+    "no": 159,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Bando",
+    "no": 160,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Bartitsu",
+    "no": 161,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Capoeira",
+    "no": 162,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Hapkido",
+    "no": 163,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Hung-Gar",
+    "no": 164,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Hwarangdo",
+    "no": 165,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Kateda",
+    "no": 166,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Kenjutsu",
+    "no": 167,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Kuk-Sool-Won",
+    "no": 168,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Kulelkavido",
+    "no": 169,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Kuttu-Varsai",
+    "no": 170,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Paradal-Serey",
+    "no": 171,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Sanguchi",
+    "no": 172,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Sambo",
+    "no": 173,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Sayokan",
+    "no": 174,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Shorinji-Kampo",
+    "no": 175,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Pencak-Sılat",
+    "no": 176,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Sindo",
+    "no": 177,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Sip-Kwon-Do",
+    "no": 178,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Systema",
+    "no": 179,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Tai-Chai",
+    "no": 180,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Xingyiquan",
+    "no": 181,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Kort-Tenisi",
+    "no": 182,
+    "mevki": [
+      "Farketmez",
+      "Açık-Alan",
+      "Kapalı-Alan",
+      "Toprak-Saha",
+      "Çim-Saha",
+      "Sert-Saha"
     ]
   }
 ]""";
