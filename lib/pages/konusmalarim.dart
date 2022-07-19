@@ -1,23 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:provider/provider.dart';
 import 'package:version1/services/auth_service.dart';
-import 'package:version1/pages/results.dart';
 import '../models/mesaj.dart';
 import '../models/user.dart';
 
 class Konusma extends StatefulWidget {
   final MyUser currentUser;
-  final MyUser sohbetEdilenUser;
+  final MyUser konusulanUser;
   Konusma({
     required this.currentUser,
-    required this.sohbetEdilenUser,
+    required this.konusulanUser,
   });
 
   @override
@@ -30,7 +23,7 @@ class _KonusmaState extends State<Konusma> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: const Text('Mesajlaşma'),
+          title: Text('Mesajlaşma + ${(widget.konusulanUser.userName!)} '),
         ),
         body: Center(
           child: Column(
@@ -38,7 +31,7 @@ class _KonusmaState extends State<Konusma> {
               Expanded(
                 child: StreamBuilder<List<Mesaj>>(
                   stream: getMessages(
-                      widget.currentUser.id!, widget.sohbetEdilenUser.id!),
+                      widget.currentUser.id!, widget.konusulanUser.id!),
                   builder: (context, StreamMesajlarlistsi) {
                     if (!StreamMesajlarlistsi.hasData) {
                       return const Center(
@@ -92,7 +85,7 @@ class _KonusmaState extends State<Konusma> {
                           if (_mesajController.text.trim().length > 0) {
                             Mesaj _kaydedilecekMesaj = Mesaj(
                               kimden: widget.currentUser.id!,
-                              kime: widget.sohbetEdilenUser.id!,
+                              kime: widget.konusulanUser.id!,
                               bendenMi: true,
                               mesaj: _mesajController.text,
                             );
@@ -101,7 +94,6 @@ class _KonusmaState extends State<Konusma> {
 
                             if (sonuc) {
                               _mesajController.clear();
-                              
                             }
                           }
                         },
@@ -118,7 +110,7 @@ class _KonusmaState extends State<Konusma> {
 
 Stream<List<Mesaj>> getMessages(String currentUserID, String konusulanUserID) {
   var snapShot = FirebaseFirestore.instance
-      .collection("Konusmalar")
+      .collection("konusmalar")
       .doc(currentUserID + ".." + konusulanUserID)
       .collection("mesajlar")
       .orderBy("date")

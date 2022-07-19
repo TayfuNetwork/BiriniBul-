@@ -1,4 +1,4 @@
-import 'dart:html';
+
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -121,10 +121,10 @@ class AuthService {
   }
 
   static saveMessage(Mesaj kaydedilecekMesaj) async {
-    var _mesajID =
-        FirebaseFirestore.instance
+    var _mesajID = 555;
+    /* FirebaseFirestore.instance
   .collection('konusmalar')
-  .doc(documentId);
+  .doc(documentId); */
 
     var _myDocumentID =
         kaydedilecekMesaj.kimden + "--" + kaydedilecekMesaj.kime;
