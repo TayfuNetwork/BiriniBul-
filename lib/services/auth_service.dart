@@ -1,5 +1,3 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -121,10 +119,9 @@ class AuthService {
   }
 
   static saveMessage(Mesaj kaydedilecekMesaj) async {
-    var _mesajID = 555;
-    /* FirebaseFirestore.instance
-  .collection('konusmalar')
-  .doc(documentId); */
+    final x = new DateTime.now().millisecondsSinceEpoch;
+
+    var _mesajID = x.toString();
 
     var _myDocumentID =
         kaydedilecekMesaj.kimden + "--" + kaydedilecekMesaj.kime;

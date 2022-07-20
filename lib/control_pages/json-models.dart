@@ -1559,7 +1559,7 @@ const String _ilDatas = """[
 const String _bransData = """[
   {
     "brans": "Futbol",
-    "no": 83,
+    "no": 82,
     "mevki": [
       "Farketmez",
       "Kaleci",
@@ -1570,7 +1570,7 @@ const String _bransData = """[
   },
   {
     "brans": "Voleybol",
-    "no": 82,
+    "no": 83,
     "mevki": [
       "Farketmez",
       "Smacor",

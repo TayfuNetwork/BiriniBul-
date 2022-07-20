@@ -1,7 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:version1/models/user.dart';
 import 'package:version1/pages/bilgilerim.dart';
+import 'package:version1/pages/konusmalarim.dart';
+import 'package:version1/pages/search_page.dart';
 import 'package:version1/services/auth_service.dart';
 import 'package:version1/services/search_service.dart';
 
@@ -42,8 +46,18 @@ class _ResultsState extends State<Results> {
 
             if (users.length == 1) {
               if (users.any((e) => e.id == AuthService().user!.id)) {
-                return const Text("Sadece Siz Varsınız");
+                return const Center(
+                  child:
+                      Text("Malesef, bu kriterlerdeki tek sprocumuz sizsiniz"),
+                );
               }
+            }
+            if (users.length == 0) {
+              return Center(
+                child: Container(
+                  child: const Text("Malesef, bu kritere uygun bir sonuç yok"),
+                ),
+              );
             }
             users.removeWhere((e) => e.id == AuthService().user!.id);
 
@@ -62,7 +76,13 @@ class _ResultsState extends State<Results> {
                     subtitle:
                         Text("${e.il}, ${e.ilce}, ${e.brans}, ${e.mevki},"),
                     trailing: const Icon(Icons.message),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).push(CupertinoPageRoute(
+                          builder: (context) => Konusma(
+                                currentUser: AuthService().user!,
+                                konusulanUser: e,
+                              )));
+                    },
                   );
                 }).toList(),
               ),

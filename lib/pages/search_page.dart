@@ -35,12 +35,6 @@ class _searchPageState extends State<searchPage> {
   String? bulunanBrans;
   String? bulunanMevki;
   Future<void> arama() async {
-    // DateTime start = DateTime.now();
-    // List<MyUser>? users =
-    //     await SearchService().search(il!.il, ilce!, brans!.brans, mevki!);
-    // DateTime end = DateTime.now();
-    // print(end.difference(start).inMilliseconds);
-    // print(users);
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => Results(
@@ -195,7 +189,12 @@ class _searchPageState extends State<searchPage> {
               children: [
                 ElevatedButton(
                     onPressed: () {
-                      arama();
+                      if (il != null && brans != null) {
+                        arama();
+                      }
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content:
+                              Text("Bütün açılır menüleri doldurmalısınız")));
                     },
                     child: const Text('Ara')),
                 ElevatedButton(
