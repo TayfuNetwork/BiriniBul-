@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:version1/models/user.dart';
-import 'package:version1/pages/bilgilerim.dart';
 import 'package:version1/pages/konusmalarim.dart';
-import 'package:version1/pages/search_page.dart';
 import 'package:version1/services/auth_service.dart';
 import 'package:version1/services/search_service.dart';
 
@@ -15,8 +12,9 @@ class Results extends StatefulWidget {
   final String ilce;
   final String brans;
   final String mevki;
-  const Results(
+  Results(
       {Key? key,
+      required this.ppColor,
       required this.brans,
       required this.il,
       required this.ilce,
@@ -25,6 +23,7 @@ class Results extends StatefulWidget {
 
   @override
   State<Results> createState() => _ResultsState();
+  Color ppColor;
 }
 
 // ignore: camel_case_types
@@ -52,6 +51,7 @@ class _ResultsState extends State<Results> {
                 );
               }
             }
+
             if (users.length == 0) {
               return Center(
                 child: Container(
@@ -64,6 +64,11 @@ class _ResultsState extends State<Results> {
             return SingleChildScrollView(
               child: Column(
                 children: users.map((e) {
+                  if (e.sex == 'Kadın') {
+                    widget.ppColor = Colors.pink.shade400;
+                  } else {
+                    widget.ppColor = Colors.blue;
+                  }
                   return ListTile(
                     title: Text(e.userName ?? ""),
                     leading: CircleAvatar(
@@ -71,7 +76,7 @@ class _ResultsState extends State<Results> {
                         e.yas.toString(),
                         style: const TextStyle(fontSize: 20),
                       ),
-                      backgroundColor: Colors.blue,
+                      backgroundColor: widget.ppColor,
                     ),
                     subtitle:
                         Text("${e.il}, ${e.ilce}, ${e.brans}, ${e.mevki},"),

@@ -42,6 +42,7 @@ class _searchPageState extends State<searchPage> {
           ilce: ilce!,
           brans: brans!.brans,
           mevki: mevki!,
+          ppColor: Colors.blue,
         ),
       ),
     );
