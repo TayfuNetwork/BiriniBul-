@@ -32,13 +32,13 @@ class _KonusmaState extends State<Konusma> {
                 child: StreamBuilder<List<Mesaj>>(
                   stream: getMessages(
                       widget.currentUser.id!, widget.konusulanUser.id!),
-                  builder: (context, StreamMesajlarlistsi) {
-                    if (!StreamMesajlarlistsi.hasData) {
+                  builder: (context, StreamMesajlarlistesi) {
+                    if (!StreamMesajlarlistesi.hasData) {
                       return const Center(
                         child: CircularProgressIndicator(),
                       );
                     }
-                    List<Mesaj>? tumMesajar = StreamMesajlarlistsi.data;
+                    List<Mesaj>? tumMesajar = StreamMesajlarlistesi.data;
                     return ListView.builder(
                         itemBuilder: (context, index) {
                           return Text(tumMesajar![index].mesaj);

@@ -119,7 +119,7 @@ class AuthService {
   }
 
   static saveMessage(Mesaj kaydedilecekMesaj) async {
-    final x = new DateTime.now().millisecondsSinceEpoch;
+    final x = DateTime.now().millisecondsSinceEpoch;
 
     var _mesajID = x.toString();
 
