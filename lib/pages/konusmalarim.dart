@@ -16,7 +16,6 @@ class Konusma extends StatefulWidget {
   @override
   State<Konusma> createState() => _KonusmaState();
 }
-
 var _mesajController = TextEditingController();
 
 class _KonusmaState extends State<Konusma> {
@@ -43,9 +42,12 @@ class _KonusmaState extends State<Konusma> {
                         itemBuilder: (context, index) {
                           return Text(tumMesajar![index].mesaj);
                         },
+                  
                         itemCount: tumMesajar?.length);
                   },
+
                 ),
+                
               ),
               Container(
                 padding: const EdgeInsets.only(bottom: 8, left: 8),

@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:version1/control_pages/reset_password.dart';
 import 'package:version1/pages/bilgilerim.dart';
 import 'package:version1/pages/profil.dart';
 import 'package:version1/services/auth_service.dart';
@@ -95,6 +96,12 @@ class _EmailPasswordState extends State<EmailPassword> {
                   onSaved: (String? girilensifre) {
                     _sifre = girilensifre;
                   },
+                ),
+                const SizedBox(height: 8),
+                GestureDetector(
+                  onTap: () => Navigator.of(context).push(CupertinoPageRoute(
+                      builder: (context) => ForgotPasswordPage())),
+                  child: const Text('Şifreni mi unuttun?'),
                 ),
                 const SizedBox(height: 8),
                 if (_formType == FormType.Register) ...[
