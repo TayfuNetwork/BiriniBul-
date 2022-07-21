@@ -91,8 +91,7 @@ class _bilgilerimState extends State<bilgilerim> {
               const SizedBox(height: 10),
 
 //******************************************************************//
-              const Text('Birden fazla kayıt oluşturabilirsiniz.',
-                  style: TextStyle(color: Colors.grey)),
+
               const Text('Kayıt oluşturmadan da gezinebilirsiniz',
                   style: TextStyle(color: Colors.grey)),
 
@@ -252,13 +251,6 @@ class _bilgilerimState extends State<bilgilerim> {
 //******************************************************************//
                 ],
               ),
-
-              /*ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).push(CupertinoPageRoute(
-                        builder: (context) => const searchPage()));
-                  },
-                  child: const Text('Gezinti')),*/
             ],
           ),
         ),

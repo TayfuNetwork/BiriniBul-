@@ -11,6 +11,7 @@ class MyUser {
   String? brans;
   String? mevki;
   int? yas;
+  String? sex;
 
   MyUser({
     this.image,
@@ -22,6 +23,7 @@ class MyUser {
     this.brans,
     this.mevki,
     this.yas,
+    this.sex,
   });
 
   MyUser copyWith({
@@ -34,6 +36,7 @@ class MyUser {
     String? brans,
     String? mevki,
     int? yas,
+    String? sex,
   }) {
     return MyUser(
       image: image ?? this.image,
@@ -45,6 +48,7 @@ class MyUser {
       brans: brans ?? this.brans,
       mevki: mevki ?? this.mevki,
       yas: yas ?? this.yas,
+      sex: sex ?? this.sex,
     );
   }
 
@@ -59,6 +63,7 @@ class MyUser {
       'brans': brans,
       'mevki': mevki,
       'yas': yas,
+      'sex': sex,
     };
   }
 
@@ -73,6 +78,7 @@ class MyUser {
       brans: map['brans'] != null ? map['brans'] as String : null,
       mevki: map['mevki'] != null ? map['mevki'] as String : null,
       yas: map['yas'] != null ? map['yas'] as int : null,
+      sex: map['sex'] != null ? map['sex'] as String : null,
     );
   }
 
@@ -83,7 +89,7 @@ class MyUser {
 
   @override
   String toString() {
-    return 'MyUser(image: $image, email: $email, userName: $userName, id: $id, il: $il, ilce: $ilce, brans: $brans, mevki: $mevki, yas: $yas)';
+    return 'MyUser(image: $image, email: $email, userName: $userName, id: $id, il: $il, ilce: $ilce, brans: $brans, mevki: $mevki, yas: $yas, sex: $sex)';
   }
 
   @override
@@ -98,7 +104,8 @@ class MyUser {
         other.ilce == ilce &&
         other.brans == brans &&
         other.mevki == mevki &&
-        other.yas == yas;
+        other.yas == yas &&
+        other.sex == sex;
   }
 
   @override
@@ -111,6 +118,7 @@ class MyUser {
         ilce.hashCode ^
         brans.hashCode ^
         mevki.hashCode ^
-        yas.hashCode;
+        yas.hashCode ^
+        sex.hashCode;
   }
 }

@@ -21,11 +21,13 @@ class Profile extends StatefulWidget {
   _ProfileState createState() => _ProfileState();
 }
 
-String? ad, soyad, yasi;
+String? ad, soyad, yasi, cinsiyeti;
 
 class _ProfileState extends State<Profile> {
   Brans? brans;
   String? mevki;
+  SexServices model1 = SexServices();
+
   BransServices model = BransServices();
   Il? il;
   String? ilce;
@@ -33,13 +35,22 @@ class _ProfileState extends State<Profile> {
   int yas = 0;
   String? isim;
   String? soyisim;
-
+  Sex? sex;
+  /*  List<DropdownMenuItem<String>> get dropdownItems {
+    List<DropdownMenuItem<String>> menuItems = const [
+      DropdownMenuItem(child: Text("Seçiniz"), value: "Seçiniz"),
+      DropdownMenuItem(child: Text("Erkek"), value: "Erkek"),
+      DropdownMenuItem(child: Text("Kadın"), value: "Kadın"),
+    ];
+    return menuItems;
+  }
+ */
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text('Profil ${AuthService().user?.id}'),
+        title: const Text('Profil'),
         actions: <Widget>[
           TextButton(
             onPressed: _cikisYap,
@@ -116,37 +127,62 @@ class _ProfileState extends State<Profile> {
                 }),
 
             const SizedBox(height: 10),
-
+//******************************************************************//
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const Text("Cinsiyet:"),
+                DropdownButton<int>(
+                  style: const TextStyle(color: Colors.black),
+                  value: sex?.x ?? 1000,
+                  items: model1.sexs.map((a) {
+                    return DropdownMenuItem(
+                      child: Text(a.sex,
+                          style: const TextStyle(color: Colors.black)),
+                      value: a.x,
+                      onTap: () {
+                        setState(() {
+                          sex = a;
+                        });
+                      },
+                    );
+                  }).toList(),
+                  onChanged: (s) {},
+                ),
+              ],
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
 //******************************************************************//
+                if (isim != null && soyisim != null && sex != null)
+                  ElevatedButton(
+                      onPressed: () async {
+                        setState(() {
+                          ad = isim!;
+                          soyad = soyisim!;
+                          yasi = yas.toString();
+                          cinsiyeti = (sex)!.sex;
+                        });
+                        User user = FirebaseAuth.instance.currentUser!;
+                        await FirebaseAuth.instance.currentUser!
+                            .updateDisplayName(
+                          ad! + " " + soyad!,
+                        );
 
-                ElevatedButton(
-                    onPressed: () async {
-                      setState(() {
-                        ad = isim!;
-                        soyad = soyisim!;
-                        yasi = yas.toString();
-                      });
-                      User user = FirebaseAuth.instance.currentUser!;
-                      await FirebaseAuth.instance.currentUser!
-                          .updateDisplayName(
-                        ad! + " " + soyad!,
-                      );
+                        MyUser myUser = MyUser(
+                          email: user.email ?? "email",
+                          userName: ad ?? "isimsiz",
+                          id: user.uid,
+                          yas: yas,
+                          sex: (sex)!.sex,
+                        );
 
-                      MyUser myUser = MyUser(
-                        email: user.email ?? "email",
-                        userName: ad ?? "name",
-                        id: user.uid,
-                        yas: yas,
-                      );
-
-                      bool? res = await AuthService().updateUser(myUser);
-                      Navigator.of(context).push(CupertinoPageRoute(
-                          builder: (context) => bilgilerim()));
-                    },
-                    child: const Text('Kaydet ve devam et')),
+                        bool? res = await AuthService().updateUser(myUser);
+                        await Navigator.of(context).push(CupertinoPageRoute(
+                            builder: (context) => bilgilerim()));
+                      },
+                      child: const Text('Kaydet ve devam et')),
               ],
             )
           ],

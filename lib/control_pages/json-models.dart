@@ -91,6 +91,35 @@ class Brans {
     return data;
   }
 }
+class SexServices {
+  List<Sex> get sexs {
+    List sexs = jsonDecode(_SexData) as List;
+    return sexs.map((a) => Sex.fromJson(a)).toList();
+  }
+
+  
+
+}
+class Sex {
+  String sex;
+  int x;
+
+  Sex({required this.sex, required this.x});
+
+  factory Sex.fromJson(Map<String, dynamic> json) {
+    return Sex(
+      sex: json["sex"],
+      x: json["x"]
+    );
+  }
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+    data['sex'] = sex;
+    data['x'] = x;
+    return data;
+  }
+
+}
 
 const String _ilDatas = """[
  
@@ -2433,5 +2462,19 @@ const String _bransData = """[
       "Çim-Saha",
       "Sert-Saha"
     ]
+  }
+]""";
+const String _SexData = """[
+  {
+    "sex": "Seçiniz",
+    "x": 1000
+  },
+  {
+    "sex": "Erkek",
+    "x": 1001
+  },
+  {
+    "sex": "Kadın",
+    "x": 1002    
   }
 ]""";
