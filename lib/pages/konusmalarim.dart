@@ -113,7 +113,7 @@ class _KonusmaState extends State<Konusma> {
 Stream<List<Mesaj>> getMessages(String currentUserID, String konusulanUserID) {
   var snapShot = FirebaseFirestore.instance
       .collection("konusmalar")
-      .doc(currentUserID + ".." + konusulanUserID)
+      .doc(currentUserID + "--" + konusulanUserID)
       .collection("mesajlar")
       .orderBy("date")
       .snapshots();
