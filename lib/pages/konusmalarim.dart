@@ -16,7 +16,9 @@ class Konusma extends StatefulWidget {
   @override
   State<Konusma> createState() => _KonusmaState();
 }
+
 var _mesajController = TextEditingController();
+ScrollController _scrollController = new ScrollController();
 
 class _KonusmaState extends State<Konusma> {
   @override
@@ -39,15 +41,13 @@ class _KonusmaState extends State<Konusma> {
                     }
                     List<Mesaj>? tumMesajar = StreamMesajlarlistesi.data;
                     return ListView.builder(
+                        controller: _scrollController,
                         itemBuilder: (context, index) {
-                          return Text(tumMesajar![index].mesaj);
+                          return _konusmaBalonuOlustur(tumMesajar![index]);
                         },
-                  
                         itemCount: tumMesajar?.length);
                   },
-
                 ),
-                
               ),
               Container(
                 padding: const EdgeInsets.only(bottom: 8, left: 8),
@@ -96,6 +96,10 @@ class _KonusmaState extends State<Konusma> {
 
                             if (sonuc) {
                               _mesajController.clear();
+                              _scrollController.animateTo(
+                                  _scrollController.position.maxScrollExtent,
+                                  duration: const Duration(milliseconds: 40),
+                                  curve: Curves.easeOut);
                             }
                           }
                         },
@@ -108,6 +112,58 @@ class _KonusmaState extends State<Konusma> {
           ),
         ),
       );
+
+  Widget _konusmaBalonuOlustur(Mesaj oankiMesaj) {
+    Color _gelenMesajRenk = Colors.blue;
+    Color _gidenMesajRenk = Theme.of(context).primaryColor;
+
+    var _benimMesajimMi = oankiMesaj.bendenMi;
+    if (_benimMesajimMi) {
+      return Padding(
+        padding: const EdgeInsets.all(8),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+          Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                color: _gidenMesajRenk,
+              ),
+              padding: const EdgeInsets.all(10),
+              margin: const EdgeInsets.all(4),
+              child: Text(
+                oankiMesaj.mesaj,
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
+              ))
+        ]),
+      );
+    } else {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                CircleAvatar(
+                  child: Text(widget.currentUser.userName![0]),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    color: _gelenMesajRenk,
+                  ),
+                  padding: const EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(4),
+                  child: Text(oankiMesaj.mesaj),
+                ),
+              ],
+            )
+          ],
+          crossAxisAlignment: CrossAxisAlignment.start,
+        ),
+      );
+    }
+  }
 }
 
 Stream<List<Mesaj>> getMessages(String currentUserID, String konusulanUserID) {

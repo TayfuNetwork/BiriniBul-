@@ -1,13 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:version1/models/user.dart';
-
 import 'package:version1/pages/bilgilerim.dart';
 import 'package:version1/pages/sign_in_page.dart';
 import 'package:version1/services/auth_service.dart';
-
 import '../control_pages/json-models.dart';
 
 // ignore: camel_case_types
@@ -181,6 +178,7 @@ class _ProfileState extends State<Profile> {
                         bool? res = await AuthService().updateUser(myUser);
                         await Navigator.of(context).push(CupertinoPageRoute(
                             builder: (context) => bilgilerim()));
+                        Navigator.of(context).pop();
                       },
                       child: const Text('Kaydet ve devam et')),
               ],

@@ -160,12 +160,14 @@ class _SignInPageState extends State<SignInPage> {
         User? _user = sonuc.user;
         await Navigator.of(context)
             .push(CupertinoPageRoute(builder: (context) => const Profile()));
+        Navigator.of(context).pop();
 
         return _user;
       } else {
         return null;
       }
     } else {
+      Navigator.of(context).pop();
       return null;
     }
   }
