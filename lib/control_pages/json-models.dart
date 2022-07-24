@@ -91,15 +91,14 @@ class Brans {
     return data;
   }
 }
+
 class SexServices {
   List<Sex> get sexs {
     List sexs = jsonDecode(_SexData) as List;
     return sexs.map((a) => Sex.fromJson(a)).toList();
   }
-
-  
-
 }
+
 class Sex {
   String sex;
   int x;
@@ -107,10 +106,7 @@ class Sex {
   Sex({required this.sex, required this.x});
 
   factory Sex.fromJson(Map<String, dynamic> json) {
-    return Sex(
-      sex: json["sex"],
-      x: json["x"]
-    );
+    return Sex(sex: json["sex"], x: json["x"]);
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
@@ -118,7 +114,6 @@ class Sex {
     data['x'] = x;
     return data;
   }
-
 }
 
 const String _ilDatas = """[
@@ -2461,6 +2456,148 @@ const String _bransData = """[
       "Toprak-Saha",
       "Çim-Saha",
       "Sert-Saha"
+    ]
+  },
+  {
+    "brans": "Bale",
+    "no": 184,
+    "mevki": [
+      "Farketmez"
+    ]
+  },
+  {
+    "brans": "Müzisyen",
+    "no": 183,
+    "mevki": [
+      "Farketmez",
+      "Ahşap-Blok",
+      "Armonika",
+      "Afoxe",
+      "Agogo",
+      "Agung",
+      "Angklung",
+      "Akordeon",
+      "Bağlama-Kısa",
+      "Bağlama-Uzun",
+      "Babendil",
+      "Bak",
+      "Bamileke",
+      "Balafon",
+      "Bata-Davulu",
+      "Bateri",
+      "Bayan",
+      "BlokFlüt",
+      "Boru",
+      "Bifora",
+      "Cabasa",
+      "Cajon",
+      "Carillon",
+      "Castanet",
+      "Caxirola",
+      "Caxixi",
+      "Chacaras",
+      "Clapstick",
+      "Def",
+      "Claves",
+      "İnek-Çanı",
+      "Crotales",
+      "Cornet",
+      "Cymbal",
+      "Ferrinho",
+      "Flexaton",
+      "Fagot",
+      "Flüt",
+      "Gitar",
+      "Okta-Vibraton",
+      "Gandingan",
+      "Gayda",
+      "Ghatam",
+      "Glockenspiel",
+      "Gong",
+      "Güiro",
+      "Islık",
+      "Harmoneon",
+      "Handpan",
+      "Hang",
+      "Kamış",
+      "Kayamb",
+      "Keman",
+      "Kemanak",
+      "Kemençe",
+      "Khartal",
+      "Ksilofon",
+      "Klarnet",
+      "Kouxian",
+      "Kulintang",
+      "Lur",
+      "Maraca",
+      "Marimba",
+      "Mbira",
+      "Ney",
+      "Org",
+      "Obua",
+      "Okarina",
+      "Pate",
+      "Piyano",
+      "Shekere",
+      "Saksafon",
+      "Saz-Kısa",
+      "Saz-Uzun",
+      "Trombon",
+      "Kesik-Davul",
+      "Kaşık",
+      "Çelik-Davul",
+      "Teponaztli",
+      "Üzgen",
+      "Çöp-Tüpü",
+      "Txalaparta",
+      "Vibrafon",
+      "Vibraslap",
+      "Müzik-Tahtası",
+      "Tenor",
+      "Tahta-Balık",
+      "Üfleme-Şişesi",
+      "Yan-Flüt",
+      "Zil",
+      "Zurna"
+    ]
+  },
+  {
+    "brans": "Dans",
+    "no": 185,
+    "mevki": [
+      "Farketmez",
+      "Rock",
+      "Broadway",
+      "Bale",
+      "Ça-Ça",
+      "Disko",
+      "Foxtrot",
+      "Salsa",
+      "Breakdance",
+      "Halk-Oyunları",
+      "Hip-Hop",
+      "Jazz",
+      "Jive",
+      "Kalipso",
+      "Lirik",
+      "Mambo",
+      "Modern-Dans",
+      "Paso-Double",
+      "Pop",
+      "Punk",
+      "Rumba",
+      "Salsa",
+      "Samba",
+      "Swing",
+      "Tango",
+      "Vals",
+      "Zeybek",
+      "Zumba",
+      "Tap-Dansı",
+      "Oryantal",
+      "Sirtaki",
+      "Roman"
     ]
   }
 ]""";

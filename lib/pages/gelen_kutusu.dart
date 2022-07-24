@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:version1/models/konusma.dart';
+import 'package:version1/models/mesaj.dart';
 import 'package:version1/services/auth_service.dart';
 
 class Inbox extends StatefulWidget {
@@ -19,15 +20,15 @@ class _InboxState extends State<Inbox> {
           title: const Text('Gelen Kutusu'),
         ),
         body: FutureBuilder<List<Konusma>>(
-          future: getAllConversations(_userModel.userName!),
+          future: getAllConversations(_userModel.id!),
           builder: (context, konusmaListesi) {
             if (!konusmaListesi.hasData) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
             } else {
-              var tumKonusmalar = konusmaListesi.data;
-              print(tumKonusmalar);
+              var tumKonusmalar = konusmaListesi.data!;
+              /* print(tumKonusmalar); */
 
               return ListView.builder(
                   itemCount: tumKonusmalar!.length,
@@ -44,7 +45,8 @@ class _InboxState extends State<Inbox> {
 }
 
 Future<List<Konusma>> getAllConversations(String userID) async {
-  QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+  QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore
+      .instance
       .collection("konusmalar")
       .where("konusma_sahibi", isEqualTo: userID)
       .orderBy("olusturulma_tarihi", descending: true)
@@ -52,14 +54,16 @@ Future<List<Konusma>> getAllConversations(String userID) async {
 
   List<Konusma> tumKonusmalar = [];
 
-  for (DocumentSnapshot tekKonusma in querySnapshot.docs) {
-    Konusma _tekKonusma = Konusma.fromMap(tekKonusma[1].data());
-    
-    tumKonusmalar.add(_tekKonusma);
+  for (DocumentSnapshot<Map<String, dynamic>> tekKonusma
+      in querySnapshot.docs) {
+    if (tekKonusma.data() != null) {
+      print("if true" + tekKonusma.toString());
+      Konusma _tekKonusma = Konusma.fromMap(tekKonusma.data()!);
+
+      tumKonusmalar.add(_tekKonusma);
+    } else {
+      print("if false" + tekKonusma.toString());
+    }
   }
   return tumKonusmalar;
-// 1 sayısı örnek olarak girildi, liste boş dönüyor.
-
-
-
 }
