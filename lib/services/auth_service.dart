@@ -135,6 +135,17 @@ class AuthService {
         .doc(_mesajID.toString())
         .set(_kaydedilecekMesajYapisi);
 
+    await FirebaseFirestore.instance
+        .collection("konusmalar")
+        .doc(_myDocumentID)
+        .set({
+      "konusma_sahibi": kaydedilecekMesaj.kimden,
+      "kimle_konusuyor": kaydedilecekMesaj.kime,
+      "son_yollanan_mesaj": kaydedilecekMesaj.mesaj,
+      "konusma_goruldu": false,
+      "olusturulma_tarihi": FieldValue.serverTimestamp()
+    });
+
     _kaydedilecekMesajYapisi.update("bendenMi", (deger) => false);
 
     await FirebaseFirestore.instance
@@ -143,6 +154,17 @@ class AuthService {
         .collection("mesajlar")
         .doc(_mesajID.toString())
         .set(_kaydedilecekMesajYapisi);
+
+    await FirebaseFirestore.instance
+        .collection("konusmalar")
+        .doc(_receiverDocumentID)
+        .set({
+      "konusma_sahibi": kaydedilecekMesaj.kime,
+      "kimle_konusuyor": kaydedilecekMesaj.kimden,
+      "son_yollanan_mesaj": kaydedilecekMesaj.mesaj,
+      "konusma_goruldu": false,
+      "olusturulma_tarihi": FieldValue.serverTimestamp()
+    });
 
     return true;
   }

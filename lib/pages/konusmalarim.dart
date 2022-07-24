@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:version1/services/auth_service.dart';
 import '../models/mesaj.dart';
 import '../models/user.dart';
@@ -18,7 +19,7 @@ class Konusma extends StatefulWidget {
 }
 
 var _mesajController = TextEditingController();
-ScrollController _scrollController = new ScrollController();
+ScrollController _scrollController =  ScrollController();
 
 class _KonusmaState extends State<Konusma> {
   @override
@@ -116,26 +117,43 @@ class _KonusmaState extends State<Konusma> {
   Widget _konusmaBalonuOlustur(Mesaj oankiMesaj) {
     Color _gelenMesajRenk = Colors.blue;
     Color _gidenMesajRenk = Theme.of(context).primaryColor;
-
+    var _saatDakikaDegeri = "";
+    try {
+      _saatDakikaDegeri = _saatDakikaGoster(oankiMesaj.date ?? Timestamp(1, 1));
+    } catch (e) {
+      print("Gecikme Hatası" + e.toString());
+    }
     var _benimMesajimMi = oankiMesaj.bendenMi;
     if (_benimMesajimMi) {
       return Padding(
         padding: const EdgeInsets.all(8),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-          Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                color: _gidenMesajRenk,
-              ),
-              padding: const EdgeInsets.all(10),
-              margin: const EdgeInsets.all(4),
-              child: Text(
-                oankiMesaj.mesaj,
-                style: const TextStyle(
-                  color: Colors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Flexible(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: _gidenMesajRenk,
+                    ),
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(4),
+                    child: Text(
+                      oankiMesaj.mesaj,
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
                 ),
-              ))
-        ]),
+                Text(_saatDakikaDegeri),
+              ],
+            )
+          ],
+        ),
       );
     } else {
       return Padding(
@@ -147,15 +165,18 @@ class _KonusmaState extends State<Konusma> {
                 CircleAvatar(
                   child: Text(widget.currentUser.userName![0]),
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    color: _gelenMesajRenk,
+                Flexible(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: _gelenMesajRenk,
+                    ),
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(4),
+                    child: Text(oankiMesaj.mesaj),
                   ),
-                  padding: const EdgeInsets.all(10),
-                  margin: const EdgeInsets.all(4),
-                  child: Text(oankiMesaj.mesaj),
                 ),
+                Text(_saatDakikaDegeri),
               ],
             )
           ],
@@ -163,6 +184,12 @@ class _KonusmaState extends State<Konusma> {
         ),
       );
     }
+  }
+
+  String _saatDakikaGoster(Timestamp? date) {
+    var _formater = DateFormat.Hm();
+    var _formatlanmisTarih = _formater.format(date!.toDate());
+    return _formatlanmisTarih;
   }
 }
 

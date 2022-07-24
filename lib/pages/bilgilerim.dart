@@ -1,9 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:version1/models/user.dart';
-import 'package:version1/pages/profil.dart';
+import 'package:version1/pages/gelen_kutusu.dart';
 import 'package:version1/pages/search_page.dart';
 import 'package:version1/pages/sign_in_page.dart';
 import 'package:version1/services/auth_service.dart';
@@ -40,12 +39,20 @@ class _bilgilerimState extends State<bilgilerim> {
         automaticallyImplyLeading: false,
         title: const Text('Bilgilerin'),
         actions: <Widget>[
-          TextButton(
-            onPressed: _cikisYap,
-            child: const Text(
-              'Çıkış Yap',
-              style: TextStyle(color: (Colors.red)),
-            ),
+          Row(
+            children: [
+              IconButton(
+                icon: Icon(Icons.chat),
+                onPressed: _mesajlaraGit,
+              ),
+              TextButton(
+                onPressed: _cikisYap,
+                child: const Text(
+                  'Çıkış Yap',
+                  style: TextStyle(color: (Colors.red)),
+                ),
+              ),
+            ],
           )
         ],
       ),
@@ -248,7 +255,6 @@ class _bilgilerimState extends State<bilgilerim> {
                               builder: (context) => const searchPage()));
                         },
                         child: const Text('Gezinti')),
-//******************************************************************//
                 ],
               ),
             ],
@@ -263,5 +269,10 @@ class _bilgilerimState extends State<bilgilerim> {
     FirebaseAuth.instance.signOut();
     await Navigator.of(context)
         .push(CupertinoPageRoute(builder: (context) => const SignInPage()));
+  }
+
+  _mesajlaraGit() {
+    return Navigator.of(context)
+        .push(CupertinoPageRoute(builder: (context) => Inbox()));
   }
 }
