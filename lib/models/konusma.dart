@@ -11,7 +11,6 @@ class Konusma {
   String? konusulanUserProfilURL;
   DateTime? sonOkunmaZamani;
   String? aradakiFark;
-
   Konusma(
       {required this.konusma_sahibi,
       required this.kimle_konusuyor,
