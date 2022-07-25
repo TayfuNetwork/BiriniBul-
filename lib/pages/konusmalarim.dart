@@ -25,7 +25,7 @@ class _KonusmaState extends State<Konusma> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text('Mesajlaşma + ${(widget.konusulanUser.userName!)} '),
+          title: Text('Sohbet ${(widget.konusulanUser.userName!)} '),
         ),
         body: Center(
           child: Column(

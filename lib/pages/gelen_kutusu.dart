@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:version1/models/konusma.dart';
-import 'package:version1/models/mesaj.dart';
 import 'package:version1/services/auth_service.dart';
 
 class Inbox extends StatefulWidget {
@@ -28,19 +28,30 @@ class _InboxState extends State<Inbox> {
               );
             } else {
               var tumKonusmalar = konusmaListesi.data!;
-              /* print(tumKonusmalar); */
+              var _saatDakikaDegeri = "";
 
               return ListView.builder(
-                  itemCount: tumKonusmalar!.length,
+                  itemCount: tumKonusmalar.length,
                   itemBuilder: (context, index) {
                     var oankiKonusma = tumKonusmalar[index];
+                    _saatDakikaDegeri =
+                        _saatDakikaGoster(oankiKonusma.olusturulma_tarihi!);
                     return ListTile(
-                      title: Text(oankiKonusma.konusulanUserName!),
+                      title: Text('Konusma Sahibi'),
+                      subtitle: Text(oankiKonusma.son_yollanan_mesaj! +
+                          "  " +
+                          _saatDakikaDegeri),
                     );
                   });
             }
           },
         ));
+  }
+
+  String _saatDakikaGoster(Timestamp? date) {
+    var _formater = DateFormat.Hm();
+    var _formatlanmisTarih = _formater.format(date!.toDate());
+    return _formatlanmisTarih;
   }
 }
 
@@ -57,12 +68,9 @@ Future<List<Konusma>> getAllConversations(String userID) async {
   for (DocumentSnapshot<Map<String, dynamic>> tekKonusma
       in querySnapshot.docs) {
     if (tekKonusma.data() != null) {
-      print("if true" + tekKonusma.toString());
       Konusma _tekKonusma = Konusma.fromMap(tekKonusma.data()!);
 
       tumKonusmalar.add(_tekKonusma);
-    } else {
-      print("if false" + tekKonusma.toString());
     }
   }
   return tumKonusmalar;

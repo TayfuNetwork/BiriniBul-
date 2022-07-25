@@ -1,12 +1,9 @@
-import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:version1/control_pages/json-models.dart';
 import 'package:flutter/material.dart';
-import 'package:version1/models/user.dart';
 import 'package:version1/pages/bilgilerim.dart';
-import 'package:version1/pages/profil.dart';
+import 'package:version1/pages/gelen_kutusu.dart';
 import 'package:version1/pages/results.dart';
-import 'package:version1/services/auth_service.dart';
-import 'package:version1/services/search_service.dart';
 import '../control_pages/json-models.dart';
 
 // ignore: camel_case_types
@@ -53,7 +50,12 @@ class _searchPageState extends State<searchPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Arama Yap'),
-        actions: const <Widget>[],
+        actions: [
+          IconButton(
+            icon: Icon(Icons.chat),
+            onPressed: _mesajlaraGit,
+          ),
+        ],
       ),
 //******************************************************************//
 
@@ -190,7 +192,7 @@ class _searchPageState extends State<searchPage> {
               children: [
                 ElevatedButton(
                     onPressed: () {
-                      if (il != null && brans != null) {
+                      if (il != null && mevki != null) {
                         arama();
                       }
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -210,5 +212,10 @@ class _searchPageState extends State<searchPage> {
         ),
       )),
     );
+  }
+
+  _mesajlaraGit() {
+    return Navigator.of(context)
+        .push(CupertinoPageRoute(builder: (context) => Inbox()));
   }
 }

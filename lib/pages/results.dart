@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:version1/models/user.dart';
+import 'package:version1/pages/gelen_kutusu.dart';
 import 'package:version1/pages/konusmalarim.dart';
 import 'package:version1/services/auth_service.dart';
 import 'package:version1/services/search_service.dart';
@@ -33,7 +34,12 @@ class _ResultsState extends State<Results> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Arama Sonuçları'),
-        actions: const <Widget>[],
+        actions: [
+          IconButton(
+            icon: Icon(Icons.chat),
+            onPressed: _mesajlaraGit,
+          ),
+        ],
       ),
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: SearchService()
@@ -100,5 +106,10 @@ class _ResultsState extends State<Results> {
         },
       ),
     );
+  }
+
+  _mesajlaraGit() {
+    return Navigator.of(context)
+        .push(CupertinoPageRoute(builder: (context) => Inbox()));
   }
 }

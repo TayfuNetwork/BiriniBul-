@@ -2599,6 +2599,26 @@ const String _bransData = """[
       "Sirtaki",
       "Roman"
     ]
+  },
+  {
+    "brans": "Heykel",
+    "no": 186,
+    "mevki": [
+      "Heykeltraş"
+    ]
+  },
+  {
+    "brans": "Resim",
+    "no": 187,
+    "mevki": [
+      "Farketmez",
+      "Kara-Kalem",
+      "Yağlı-Boya",
+      "Kuru-Boya",
+      "Nü",
+      "Narural",
+      "Diğer"
+    ]
   }
 ]""";
 const String _SexData = """[
