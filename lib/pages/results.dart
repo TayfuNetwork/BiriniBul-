@@ -61,7 +61,8 @@ class _ResultsState extends State<Results> {
             if (users.length == 0) {
               return Center(
                 child: Container(
-                  child: const Text("Malesef, bu kritere uygun bir sonuç yok"),
+                  child:
+                      const Text("Malesef, bu kriterlere uygun bir sonuç yok"),
                 ),
               );
             }

@@ -192,12 +192,14 @@ class _searchPageState extends State<searchPage> {
               children: [
                 ElevatedButton(
                     onPressed: () {
-                      if (il != null && mevki != null) {
+                      if (il != null && ilce != null && brans != null) {
                         arama();
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text(
+                                    "Bütün açılır menüleri doldurmalısınız")));
                       }
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content:
-                              Text("Bütün açılır menüleri doldurmalısınız")));
                     },
                     child: const Text('Ara')),
                 ElevatedButton(

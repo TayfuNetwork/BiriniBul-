@@ -143,7 +143,7 @@ class AuthService {
       "kimle_konusuyor": kaydedilecekMesaj.kime,
       "son_yollanan_mesaj": kaydedilecekMesaj.mesaj,
       "konusma_goruldu": false,
-      "olusturulma_tarihi": FieldValue.serverTimestamp()
+      "olusturulma_tarihi": DateTime.now()
     });
 
     _kaydedilecekMesajYapisi.update("bendenMi", (deger) => false);
@@ -163,7 +163,7 @@ class AuthService {
       "kimle_konusuyor": kaydedilecekMesaj.kimden,
       "son_yollanan_mesaj": kaydedilecekMesaj.mesaj,
       "konusma_goruldu": false,
-      "olusturulma_tarihi": FieldValue.serverTimestamp()
+      "olusturulma_tarihi": DateTime.now()
     });
 
     return true;

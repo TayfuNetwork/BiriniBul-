@@ -29,7 +29,7 @@ class _InboxState extends State<Inbox> {
             } else {
               var tumKonusmalar = konusmaListesi.data!;
               var _saatDakikaDegeri = "";
-
+              
               return ListView.builder(
                   itemCount: tumKonusmalar.length,
                   itemBuilder: (context, index) {
