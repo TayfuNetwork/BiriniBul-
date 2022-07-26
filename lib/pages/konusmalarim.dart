@@ -6,22 +6,22 @@ import 'package:version1/services/auth_service.dart';
 import '../models/mesaj.dart';
 import '../models/user.dart';
 
-class Konusma extends StatefulWidget {
+class Sohbet extends StatefulWidget {
   final MyUser currentUser;
   final MyUser konusulanUser;
-  Konusma({
+  Sohbet({
     required this.currentUser,
     required this.konusulanUser,
   });
 
   @override
-  State<Konusma> createState() => _KonusmaState();
+  State<Sohbet> createState() => _SohbetState();
 }
 
 var _mesajController = TextEditingController();
-ScrollController _scrollController =  ScrollController();
+ScrollController _scrollController = ScrollController();
 
-class _KonusmaState extends State<Konusma> {
+class _SohbetState extends State<Sohbet> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(

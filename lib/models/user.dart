@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
+
 class MyUser {
   String? image;
   String? email;
@@ -12,6 +14,10 @@ class MyUser {
   String? mevki;
   int? yas;
   String? sex;
+  
+  
+  
+  
 
   MyUser({
     this.image,
@@ -79,13 +85,20 @@ class MyUser {
       mevki: map['mevki'] != null ? map['mevki'] as String : null,
       yas: map['yas'] != null ? map['yas'] as int : null,
       sex: map['sex'] != null ? map['sex'] as String : null,
+
+
+    
     );
+
+    
+
   }
 
   String toJson() => json.encode(toMap());
 
   factory MyUser.fromJson(String source) =>
       MyUser.fromMap(json.decode(source) as Map<String, dynamic>);
+      MyUser.idveResim({@required this.id});
 
   @override
   String toString() {

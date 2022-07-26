@@ -90,7 +90,7 @@ class _ResultsState extends State<Results> {
                     trailing: const Icon(Icons.message),
                     onTap: () {
                       Navigator.of(context).push(CupertinoPageRoute(
-                          builder: (context) => Konusma(
+                          builder: (context) => Sohbet(
                                 currentUser: AuthService().user!,
                                 konusulanUser: e,
                               )));
