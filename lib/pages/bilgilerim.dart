@@ -232,7 +232,6 @@ class _bilgilerimState extends State<bilgilerim> {
                               il: ili,
                               ilce: ilce,
                               mevki: mevki,
-                              
                             );
                             bool? res = await AuthService().updateUser(user);
                             Navigator.of(context).push(CupertinoPageRoute(

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/widgets.dart';
@@ -53,10 +54,9 @@ class _InboxState extends State<Inbox> {
                           onTap: () => Navigator.of(context).push(
                             CupertinoPageRoute(
                               builder: (context) => Sohbet(
-                                currentUser: AuthService().user!,
-                                konusulanUser: MyUser.idveResim(
-                                    id: oankiKonusma.kimle_konusuyor),
-                              ),
+                                  currentUser: _userModel,
+                                  konusulanUser:
+                                      MyUser(id: oankiKonusma.kimle_konusuyor)),
                             ),
                           ),
                         );
@@ -100,4 +100,18 @@ Future<List<Konusma>> getAllConversations(String userID) async {
     }
   }
   return tumKonusmalar;
+}
+
+Future<MyUser?> getUserFromId(String id) async {
+  DocumentSnapshot<Map<String, dynamic>> userData =
+      await FirebaseFirestore.instance.collection("Users").doc(id).get();
+  MyUser? user;
+  try {
+    if (userData.data() != null) {
+      user = MyUser.fromMap(userData.data()!);
+    }
+  } on Exception catch (e) {
+    debugPrint(e.toString());
+  }
+  return user;
 }

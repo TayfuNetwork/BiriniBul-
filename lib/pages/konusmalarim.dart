@@ -24,7 +24,9 @@ ScrollController _scrollController = ScrollController();
 class _SohbetState extends State<Sohbet> {
   @override
   Widget build(BuildContext context) => Scaffold(
+        //backgroundColor: Color.fromARGB(255, 129, 152, 192),
         appBar: AppBar(
+          elevation: 1,
           title: Text('Sohbet ${(widget.konusulanUser.userName!)} '),
         ),
         body: Center(
@@ -78,7 +80,7 @@ class _SohbetState extends State<Sohbet> {
                       ),
                       child: FloatingActionButton(
                         elevation: 0,
-                        backgroundColor: Colors.blue,
+                        backgroundColor: Colors.cyan,
                         child: const Icon(
                           Icons.navigation,
                           size: 35,
