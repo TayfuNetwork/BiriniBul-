@@ -8,7 +8,7 @@ import '../models/user.dart';
 
 class Sohbet extends StatefulWidget {
   final MyUser currentUser;
-  final MyUser konusulanUser;
+  late MyUser konusulanUser;
   Sohbet({
     required this.currentUser,
     required this.konusulanUser,
@@ -25,6 +25,7 @@ class _SohbetState extends State<Sohbet> {
   @override
   Widget build(BuildContext context) => Scaffold(
         //backgroundColor: Color.fromARGB(255, 129, 152, 192),
+
         appBar: AppBar(
           elevation: 1,
           title: Text('Sohbet ${(widget.konusulanUser.userName!)} '),
@@ -35,6 +36,8 @@ class _SohbetState extends State<Sohbet> {
               Expanded(
                 child: StreamBuilder<List<Mesaj>>(
                   stream: getMessages(
+                    
+                   
                       widget.currentUser.id!, widget.konusulanUser.id!),
                   builder: (context, StreamMesajlarlistesi) {
                     if (!StreamMesajlarlistesi.hasData) {
@@ -80,7 +83,7 @@ class _SohbetState extends State<Sohbet> {
                       ),
                       child: FloatingActionButton(
                         elevation: 0,
-                        backgroundColor: Colors.cyan,
+                        backgroundColor: Colors.green,
                         child: const Icon(
                           Icons.navigation,
                           size: 35,
@@ -117,7 +120,7 @@ class _SohbetState extends State<Sohbet> {
       );
 
   Widget _konusmaBalonuOlustur(Mesaj oankiMesaj) {
-    Color _gelenMesajRenk = Colors.blue;
+    Color _gelenMesajRenk = Colors.green;
     Color _gidenMesajRenk = Theme.of(context).primaryColor;
     var _saatDakikaDegeri = "";
     try {

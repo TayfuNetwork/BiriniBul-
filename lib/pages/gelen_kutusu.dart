@@ -42,22 +42,29 @@ class _InboxState extends State<Inbox> {
                       itemCount: tumKonusmalar.length,
                       itemBuilder: (context, index) {
                         var oankiKonusma = tumKonusmalar[index];
+
                         _saatDakikaDegeri =
                             _saatDakikaGoster(oankiKonusma.olusturulma_tarihi!);
+
+                        Future<MyUser?> karsiUser =
+                            getUserFromId(oankiKonusma.kimle_konusuyor!);
                         return ListTile(
                           title: Text(oankiKonusma.son_yollanan_mesaj! +
                               "  " +
                               _saatDakikaDegeri),
-                          subtitle: const Text('Konusma Sahibi'),
-                          leading:
-                              const CircleAvatar(backgroundColor: Colors.black),
-                          onTap: () => Navigator.of(context).push(
+                          subtitle: Text(karsiUser.toString()),
+                          leading: const Icon(Icons.pending),
+                          //const CircleAvatar(backgroundColor: Colors.blue),
+                          onTap: () async =>
+                              //Future<MyUser?> konusulanKisi = (await getUserFromId(oankiKonusma.kimle_konusuyor!));
+
+                              await Navigator.of(context).push(
                             CupertinoPageRoute(
-                              builder: (context) => Sohbet(
-                                  currentUser: _userModel,
-                                  konusulanUser:
-                                      MyUser(id: oankiKonusma.kimle_konusuyor)),
-                            ),
+                                builder: (context) => Sohbet(
+                                      currentUser: _userModel,
+                                      konusulanUser:
+                                          MyUser(id: karsiUser.toString()),
+                                    )),
                           ),
                         );
                       }),
@@ -105,6 +112,7 @@ Future<List<Konusma>> getAllConversations(String userID) async {
 Future<MyUser?> getUserFromId(String id) async {
   DocumentSnapshot<Map<String, dynamic>> userData =
       await FirebaseFirestore.instance.collection("Users").doc(id).get();
+
   MyUser? user;
   try {
     if (userData.data() != null) {

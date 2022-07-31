@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Konusma {
   final String? konusma_sahibi;
-  final String? kimle_konusuyor;
+  late final String? kimle_konusuyor;
   final bool? goruldu;
   final Timestamp? olusturulma_tarihi;
   final String? son_yollanan_mesaj;
