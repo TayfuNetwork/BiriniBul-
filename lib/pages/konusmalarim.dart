@@ -28,7 +28,7 @@ class _SohbetState extends State<Sohbet> {
 
         appBar: AppBar(
           elevation: 1,
-          title: Text('Sohbet ${(widget.konusulanUser.userName!)} '),
+          title: const Text('Sohbet '),
         ),
         body: Center(
           child: Column(
@@ -36,8 +36,6 @@ class _SohbetState extends State<Sohbet> {
               Expanded(
                 child: StreamBuilder<List<Mesaj>>(
                   stream: getMessages(
-                    
-                   
                       widget.currentUser.id!, widget.konusulanUser.id!),
                   builder: (context, StreamMesajlarlistesi) {
                     if (!StreamMesajlarlistesi.hasData) {

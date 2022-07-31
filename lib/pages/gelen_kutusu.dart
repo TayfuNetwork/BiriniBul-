@@ -46,27 +46,34 @@ class _InboxState extends State<Inbox> {
                         _saatDakikaDegeri =
                             _saatDakikaGoster(oankiKonusma.olusturulma_tarihi!);
 
-                        Future<MyUser?> karsiUser =
-                            getUserFromId(oankiKonusma.kimle_konusuyor!);
-                        return ListTile(
-                          title: Text(oankiKonusma.son_yollanan_mesaj! +
-                              "  " +
-                              _saatDakikaDegeri),
-                          subtitle: Text(karsiUser.toString()),
-                          leading: const Icon(Icons.pending),
-                          //const CircleAvatar(backgroundColor: Colors.blue),
-                          onTap: () async =>
-                              //Future<MyUser?> konusulanKisi = (await getUserFromId(oankiKonusma.kimle_konusuyor!));
-
-                              await Navigator.of(context).push(
-                            CupertinoPageRoute(
-                                builder: (context) => Sohbet(
-                                      currentUser: _userModel,
-                                      konusulanUser:
-                                          MyUser(id: karsiUser.toString()),
-                                    )),
-                          ),
-                        );
+                        return StreamBuilder<MyUser?>(
+                            stream:
+                                getUserFromId(oankiKonusma.kimle_konusuyor!),
+                            builder: (context, snapshot) {
+                              if (!snapshot.hasData) {
+                                return const SizedBox(
+                                  height: 20,
+                                );
+                              }
+                              MyUser user = snapshot.data!;
+                              return ListTile(
+                                  title: Text(user.userName!),
+                                  subtitle: Text(
+                                      oankiKonusma.son_yollanan_mesaj! +
+                                          "  " +
+                                          _saatDakikaDegeri),
+                                  leading: const Icon(Icons.pending),
+                                  //const CircleAvatar(backgroundColor: Colors.blue),
+                                  onTap: () async {
+                                    print(user);
+                                    await Navigator.of(context)
+                                        .push(CupertinoPageRoute(
+                                            builder: (context) => Sohbet(
+                                                  currentUser: _userModel,
+                                                  konusulanUser: user,
+                                                )));
+                                  });
+                            });
                       }),
                 ),
               );
@@ -109,17 +116,15 @@ Future<List<Konusma>> getAllConversations(String userID) async {
   return tumKonusmalar;
 }
 
-Future<MyUser?> getUserFromId(String id) async {
-  DocumentSnapshot<Map<String, dynamic>> userData =
-      await FirebaseFirestore.instance.collection("Users").doc(id).get();
-
-  MyUser? user;
-  try {
-    if (userData.data() != null) {
-      user = MyUser.fromMap(userData.data()!);
+Stream<MyUser?> getUserFromId(String id) {
+  return FirebaseFirestore.instance
+      .collection("Users")
+      .doc(id)
+      .snapshots()
+      .map((e) {
+    if (e.data() == null) {
+      return null;
     }
-  } on Exception catch (e) {
-    debugPrint(e.toString());
-  }
-  return user;
+    return MyUser.fromMap(e.data()!);
+  }).distinct();
 }
